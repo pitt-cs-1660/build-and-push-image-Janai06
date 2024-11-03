@@ -19,8 +19,8 @@ jobs:
         id: auth
         name: Authenticate to GCP
         with:
-          project_id: 'class-example-435323' # update with your project ID 
-          workload_identity_provider: 'projects/1068039746994/locations/global/workloadIdentityPools/github/providers/my-repo' # update with your Workload Identity Pool
+          project_id: 'cs1660-440617' # update with your project ID 
+          workload_identity_provider: 'projects/698647383827/locations/global/workloadIdentityPools/github/providers/my-repo' # update with your Workload Identity Pool
 
       # configure/login with docker
       - name: gcloud Configure Docker
@@ -43,6 +43,6 @@ jobs:
 # @note: you can use regular docker commands instead of the shared action
       - name: Build and Push Without Buildx
         run: |
-          docker build -t us-central1-docker.pkg.dev/class-example-435323/cs1660-build-and-push-image/node-demo:v1 .
-          docker push us-central1-docker.pkg.dev/class-example-435323/cs1660-build-and-push-image/node-demo:v1
+          docker build -t us-central1-docker.pkg.dev/cs1660-440617/assignment-3/node-demo:v1 .
+          docker push us-central1-docker.pkg.dev/cs1660-440617/assignment-3/node-demo:v1
          # --> us-central1.pkg.dev/cc-fall2024/dansc0de/node-demo:v1 <--
