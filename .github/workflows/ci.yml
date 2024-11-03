@@ -23,11 +23,20 @@ jobs:
           workload_identity_provider: 'projects/1009752399617/locations/global/workloadIdentityPools/github/providers/my-repo' # Update with your Workload Identity Pool
           service_account: 'github-actions@cs1660-440620.iam.gserviceaccount.com'
  
-      # Chrck Authentication
+      # Check Authentication
       - name: Check Authentication
         run: |
             gcloud auth list
             gcloud config list
+
+      # Debugging Info
+      - name: Debugging Info
+        run: |
+          echo "Checking Docker Configuration"
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+          echo "Docker Configuration Done"
+          docker info
+          echo "Docker Info Retrieved"
 
       # Build and Push Docker Image
       - name: Build and Push Docker Image
