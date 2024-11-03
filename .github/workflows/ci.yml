@@ -32,6 +32,6 @@ jobs:
       # Build and Push Docker Image
       - name: Build and Push Docker Image
         run: |
-          gcloud --quiet auth configure-docker us-central1-docker.pkg.dev
+          gcloud auth configure-docker us-central1-docker.pkg.dev
           docker build -t us-central1-docker.pkg.dev/cs1660-440620/assignment-3/node-demo:v1 .
           docker push us-central1-docker.pkg.dev/cs1660-440620/assignment-3/node-demo:v1
