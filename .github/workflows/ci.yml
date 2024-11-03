@@ -19,7 +19,7 @@ jobs:
         id: auth
         name: Authenticate to GCP
         with:
-          project_id: 'class-example-435323' # update with your project ID
+          project_id: 'class-example-435323' # update with your project ID 
           workload_identity_provider: 'projects/1068039746994/locations/global/workloadIdentityPools/github' # update with your Workload Identity Pool
 
       # configure/login with docker
