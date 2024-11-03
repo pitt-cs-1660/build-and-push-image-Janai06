@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - main
-      # - login-gcr.io # @note: use any development branch you would like
+      - login-gcr.io # @note: use any development branch you would like
 
 jobs:
   build-and-push-to-gcr:
@@ -11,28 +11,37 @@ jobs:
       contents: 'read'
       id-token: 'write'
     steps:
-      # checkout code
+      # Checkout code
       - uses: actions/checkout@v4
 
-      # authenticate with GCP with workload identity provider
+      # Authenticate with GCP using workload identity provider
       - uses: 'google-github-actions/auth@v2'
         id: auth
         name: Authenticate to GCP
         with:
-          project_id: 'cs1660-440620' # update with your project ID 
-          workload_identity_provider: 'projects/1009752399617/locations/global/workloadIdentityPools/github/providers/my-repo' # update with your Workload Identity Pool
+          project_id: 'cs1660-440620' # Update with your project ID
+          workload_identity_provider: 'projects/1009752399617/locations/global/workloadIdentityPools/github/providers/my-repo' # Update with your Workload Identity Pool
           service_account: 'github-actions@cs1660-440620.iam.gserviceaccount.com'
  
-      # configure/login with docker
+      # Debugging step to verify authentication
+      - name: Verify Authentication
+        run: gcloud auth list
+
+      # Configure Docker to use gcloud as a credential helper
       - name: gcloud Configure Docker
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
-      # setup docker buildx
+      # Debugging step to verify Docker configuration
+      - name: Verify Docker Configuration
+        run: cat ~/.docker/config.json
+
+      # Setup Docker Buildx
       - name: Setup docker buildx
         uses: docker/setup-buildx-action@v3
         with:
           platforms: linux/amd64,linux/arm64
 
+      # Build and Push using Docker Buildx
       - name: Build and Push
         uses: docker/build-push-action@v6
         with:
@@ -41,7 +50,7 @@ jobs:
           push: true
           tags: us-central1-docker.pkg.dev/cs1660-440620/assignment-3/node-demo:test
 
-# @note: you can use regular docker commands instead of the shared action
+      # Build and Push without Buildx (alternative method)
       - name: Build and Push Without Buildx
         run: |
           docker build -t us-central1-docker.pkg.dev/cs1660-440620/assignment-3/node-demo:v1 .
