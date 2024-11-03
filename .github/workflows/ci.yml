@@ -10,6 +10,7 @@ jobs:
     permissions:
       contents: 'read'
       id-token: 'write'
+      packages: 'write'
     steps:
       # Checkout code
       - uses: actions/checkout@v4
@@ -22,8 +23,8 @@ jobs:
           workload_identity_provider: 'projects/1009752399617/locations/global/workloadIdentityPools/github/providers/my-repo' # Update with your Workload Identity Pool
           service_account: 'github-actions@cs1660-440620.iam.gserviceaccount.com'
  
-      # Build and Push without Buildx (alternative method)
-      - name: Build and Push Without Buildx
+      # Build and Push Docker Image
+      - name: Build and Push Docker Image
         run: |
           gcloud --quiet auth configure-docker us-central1-docker.pkg.dev
           docker build -t us-central1-docker.pkg.dev/cs1660-440620/assignment-3/node-demo:v1 .
