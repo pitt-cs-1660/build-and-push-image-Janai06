@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - main
-      - login-gcr.io # @note: use any development branch you would like
+      # - login-gcr.io # @note: use any development branch you would like
 
 jobs:
   build-and-push-to-gcr:
@@ -19,7 +19,7 @@ jobs:
         id: auth
         name: Authenticate to GCP
         with:
-          # project_id: 'cs1660-440620' # update with your project ID 
+          project_id: 'cs1660-440620' # update with your project ID 
           workload_identity_provider: 'projects/1009752399617/locations/global/workloadIdentityPools/github/providers/my-repo' # update with your Workload Identity Pool
           service_account: 'github-actions@cs1660-440620.iam.gserviceaccount.com'
  
